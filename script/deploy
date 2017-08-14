@@ -3,5 +3,7 @@ set -e
 cat $KUBECONFIG > /tmp/kube.yaml
 KUBECONFIG=/tmp/kube.yaml
 
+cat $KUBECONFIG
+
 kaml --set=image=${1} ./.pando local | \
     kubectl apply --context=minikube -f -

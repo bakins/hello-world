@@ -12,7 +12,7 @@ pipeline:
     image: plugins/docker
     registry: quay.io
     repo: quay.io/bakins/hello-world
-    secrets: [ docker_username, docker_password ]
+    secrets: [ docker_username, docker_password, kubeconfig ]
     tags: ${DRONE_COMMIT_SHA:0:8}
     debug: true
     when:
