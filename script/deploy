@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e
-echo $KUBECONFIG
-
-cat $KUBECONFIG > /tmp/kube.yaml
-KUBECONFIG=/tmp/kube.yaml
+cat "$KUBECONFIG" > /tmp/kube.yaml
+export KUBECONFIG=/tmp/kube.yaml
 
 cat $KUBECONFIG
 
