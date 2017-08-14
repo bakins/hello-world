@@ -12,7 +12,7 @@ pipeline:
     image: plugins/docker
     registry: quay.io
     repo: quay.io/bakins/hello-world
-    secrets: [ docker_username, docker_password, kubeconfig ]
+    secrets: [ docker_username, docker_password ]
     tags: ${DRONE_COMMIT_SHA:0:8}
     debug: true
     when:
@@ -20,6 +20,7 @@ pipeline:
 
   deploy-app:
     image: dockerfactory.rsglab.com/rsg/platform/k8s-deployer:2e452fb-45
+    secrets: [ kubeconfig ]
     commands:
       - "./script/deploy quay.io/bakins/hello-world:${DRONE_COMMIT_SHA:0:8}"
     when:
