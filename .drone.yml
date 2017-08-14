@@ -12,8 +12,13 @@ pipeline:
     image: plugins/docker
     repo: quay.io/bakins/hello-world
     tags: ${DRONE_COMMIT_SHA:0:8}
-    environment:
-      - PLUGIN_DRY_RUN=false
+    when:
+      branch: master
+
+  deploy-app:
+    image: dockerfactory.rsglab.com/rsg/platform/k8s-deployer:cb2ccd3-39
+    commands:
+      - kaml ./pando local
     when:
       branch: master
 

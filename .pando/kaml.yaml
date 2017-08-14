@@ -1,0 +1,5 @@
+name: hello-world
+targets:
+- name: local
+  namespace: default
+  cluster: minikube

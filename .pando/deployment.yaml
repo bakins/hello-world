@@ -1,0 +1,33 @@
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: {{ .Values.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.Name }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.Name }}
+    spec:
+      containers:
+        - name: hello-world
+          image: {{ .Values.image }}
+          imagePullPolicy: IfNotPresent
+          command:
+            - /hello-world
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: app
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 0.1
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
