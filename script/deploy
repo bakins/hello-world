@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e
-cat "$KUBECONFIG" > /tmp/kube.yaml
-export KUBECONFIG=/tmp/kube.yaml
 
-cat $KUBECONFIG
+echo "$KUBECONFIG" > /tmp/kube.yaml
 
 kaml --set=image=${1} ./.pando local | \
-    kubectl apply --context=minikube -f -
+    kubectl apply --kubeconfig=/tmp/kube.yaml --context=minikube -f -
