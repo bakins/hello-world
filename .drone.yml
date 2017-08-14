@@ -13,7 +13,7 @@ pipeline:
     repo: quay.io/bakins/hello-world
     tags: ${DRONE_COMMIT_SHA:0:8}
     environment:
-      - PLUGIN_DRY_RUN=true
+      - PLUGIN_DRY_RUN=false
     when:
       branch: master
 
