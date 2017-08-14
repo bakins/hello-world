@@ -20,6 +20,7 @@ pipeline:
     repo: quay.io/bakins/hello-world
     secrets: [ docker_username, docker_password ]
     tags: ${DRONE_COMMIT_SHA:0:8}
+    debug: true
     when:
       branch: master
 
