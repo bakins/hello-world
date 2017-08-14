@@ -1,0 +1,21 @@
+workspace:
+
+pipeline:
+  build:
+    image: golang:1.8.3
+    environment:
+      - CGO=0
+      - GOOS=linux
+      - GOARCH=amd64
+    commands:
+      - go build -o hello-world .
+
+  build-image:
+    image: plugins/docker
+    repo: quay.io/bakins/hello-world
+    tags: ${DRONE_COMMIT_SHA:0:8}
+    environment:
+      - PLUGIN_DRY_RUN=true
+    when:
+      branch: master
+
