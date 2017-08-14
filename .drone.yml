@@ -10,7 +10,7 @@ pipeline:
 
   build-image:
     image: plugins/docker
-    repo: quay.io/bakins/hello-world
+    repo: dockerfactory.rsglab.com/bakins/hello-world
     tags: ${DRONE_COMMIT_SHA:0:8}
     when:
       branch: master
@@ -18,7 +18,7 @@ pipeline:
   deploy-app:
     image: dockerfactory.rsglab.com/rsg/platform/k8s-deployer:cb2ccd3-39
     commands:
-      - kaml --set=image=quay.io/bakins/hello-world:${DRONE_COMMIT_SHA:0:8} ./pando local
+      - kaml --set=image=dockerfactory.rsglab.com/bakins/hello-world:${DRONE_COMMIT_SHA:0:8} ./pando local
     when:
       branch: master
 
