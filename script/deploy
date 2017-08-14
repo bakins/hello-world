@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cat $KUBECONFIG > /tmp/kube.yaml
+KUBECONFIG=/tmp/kube.yaml
+
+kaml --set=image=${1} ./.pando local | \
+    kubectl     
