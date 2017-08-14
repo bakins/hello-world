@@ -1,16 +1,17 @@
 pipeline:
-  build:
-    image: golang:1.8.3
-    environment:
-      - CGO=0
-      - GOOS=linux
-      - GOARCH=amd64
-    commands:
-      - go build -o hello-world .
+#  build:
+#    image: golang:1.8.3
+#    environment:
+#      - CGO=0
+#      - GOOS=linux
+#      - GOARCH=amd64
+#    commands:
+#      - go build -o hello-world .
 
   build-image:
     image: plugins/docker
-    repo: dockerfactory.rsglab.com/bakins/hello-world
+    repo: quay.io/bakins/hello-world
+    secrets: [ docker_username, docker_password ]
     tags: ${DRONE_COMMIT_SHA:0:8}
     when:
       branch: master
@@ -18,7 +19,7 @@ pipeline:
   deploy-app:
     image: dockerfactory.rsglab.com/rsg/platform/k8s-deployer:cb2ccd3-39
     commands:
-      - kaml --set=image=dockerfactory.rsglab.com/bakins/hello-world:${DRONE_COMMIT_SHA:0:8} ./pando local
+      - "kaml --set=image=quay.io/bakins/hello-world:${DRONE_COMMIT_SHA:0:8} ./pando local"
     when:
       branch: master
 
