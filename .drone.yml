@@ -8,13 +8,6 @@ pipeline:
 #    commands:
 #      - go build -o hello-world .
 
-  docker:
-    image: ubuntu
-    commands:
-     - echo $DOCKER_USERNAME
-     - echo $DOCKER_PASSWORD
-    secrets: [ docker_username, docker_password ]
-
   build-image:
     image: plugins/docker
     repo: quay.io/bakins/hello-world
